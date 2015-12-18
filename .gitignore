@@ -7,4 +7,4 @@ javadocs/*
 .classpath
 .project
 logs/
-bin/
+bin/*
