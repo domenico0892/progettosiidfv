@@ -3,15 +3,32 @@ package it.uniroma3.model;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.bson.Document;
+
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
+import it.uniroma3.persistence.MongoConnection;
 
 public class MyCrawler extends WebCrawler {
 
     private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|gif|jpg"
                                                            + "|png|mp3|mp3|zip|gz))$");
+    
+    private MongoCollection<Document> coll;
+    
+    public MyCrawler () {
+    	super();
+    	MongoConnection m = new MongoConnection();
+    	MongoDatabase d = m.getMongoClient().getDatabase("prova_crawler");
+    	this.coll = d.getCollection("prova_crawler");
+    	
+    }
+    
 
     /**
      * This method receives two parameters. The first parameter is the page
@@ -41,13 +58,16 @@ public class MyCrawler extends WebCrawler {
 
          if (page.getParseData() instanceof HtmlParseData) {
              HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-             String text = htmlParseData.getText();
+             String text = htmlParseData.getText(); //qui ci va la chiamata a boilerpipe
+             //costruzione delle frasi
+             //match -> SingleResult[] {URL, content, data, ...}
+             SingleResult s = new SingleResult (url, text);
+             this.coll.insertOne(s.singleResult2Document());
              String html = htmlParseData.getHtml();
              Set<WebURL> links = htmlParseData.getOutgoingUrls();
-
              System.out.println("Text length: " + text.length());
              System.out.println("Html length: " + html.length());
-             System.out.println(html.toString().trim());
+             //System.out.println(html.toString().trim());
              //System.out.println(text.toString());
              System.out.println("Number of outgoing links: " + links.size());
          }
