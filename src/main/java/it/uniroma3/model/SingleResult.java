@@ -1,5 +1,7 @@
 package it.uniroma3.model;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.bson.Document;
 
@@ -7,11 +9,13 @@ public class SingleResult {
 	private Date dateCreation;
 	private String url;
 	private String text;
+	private List<String> entity;
 	
 	public SingleResult (String url, String text) {
 		this.dateCreation = new Date();
 		this.url = url;
 		this.text = text;
+		this.entity = new ArrayList<String>();
 	}
 
 	public Date getDateCreation() {
@@ -26,11 +30,16 @@ public class SingleResult {
 		return text;
 	}
 	
+	public void addEntity (String e) {
+		this.entity.add(e);
+	}
+	
 	public Document singleResult2Document () {
 		Document doc = new Document();
 		doc.append("dateCreation", this.dateCreation);
 		doc.append("url", this.url);
 		doc.append("text", this.text);
+		doc.append("entity", this.entity);
 		return doc;
 	}
 }

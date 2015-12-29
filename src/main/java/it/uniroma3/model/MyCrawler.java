@@ -62,6 +62,8 @@ public class MyCrawler extends WebCrawler {
              //costruzione delle frasi
              //match -> SingleResult[] {URL, content, data, ...}
              SingleResult s = new SingleResult (url, text);
+             s.addEntity("prova1");
+             s.addEntity("prova2");
              this.coll.insertOne(s.singleResult2Document());
              String html = htmlParseData.getHtml();
              Set<WebURL> links = htmlParseData.getOutgoingUrls();
