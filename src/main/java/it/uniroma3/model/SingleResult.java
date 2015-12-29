@@ -30,10 +30,10 @@ public class SingleResult {
 		return text;
 	}
 	
-	public void addEntity (String e) {
-		this.entity.add(e);
+	public List<String> getEntity () {
+		return this.entity;
 	}
-	
+
 	public void setEntity(List<String> entity) {
 		this.entity = entity;
 	}
