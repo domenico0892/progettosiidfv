@@ -34,6 +34,10 @@ public class SingleResult {
 		this.entity.add(e);
 	}
 	
+	public void setEntity(List<String> entity) {
+		this.entity = entity;
+	}
+	
 	public Document singleResult2Document () {
 		Document doc = new Document();
 		doc.append("dateCreation", this.dateCreation);

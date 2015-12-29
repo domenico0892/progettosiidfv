@@ -1,5 +1,9 @@
 package it.uniroma3.model;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -8,6 +12,8 @@ import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import de.l3s.boilerpipe.BoilerpipeProcessingException;
+import de.l3s.boilerpipe.extractors.ArticleExtractor;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
@@ -18,6 +24,9 @@ public class MyCrawler extends WebCrawler {
 
     private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|gif|jpg"
                                                            + "|png|mp3|mp3|zip|gz))$");
+    
+    //insert the keywords of the query
+    public static final String[] KEYWORDS = {"Rugani", "Roma"};
     
     private MongoCollection<Document> coll;
     
@@ -57,21 +66,77 @@ public class MyCrawler extends WebCrawler {
          System.out.println("URL: " + url);
 
          if (page.getParseData() instanceof HtmlParseData) {
-             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-             String text = htmlParseData.getText(); //qui ci va la chiamata a boilerpipe
-             //costruzione delle frasi
-             //match -> SingleResult[] {URL, content, data, ...}
-             SingleResult s = new SingleResult (url, text);
-             s.addEntity("prova1");
-             s.addEntity("prova2");
-             this.coll.insertOne(s.singleResult2Document());
-             String html = htmlParseData.getHtml();
-             Set<WebURL> links = htmlParseData.getOutgoingUrls();
-             System.out.println("Text length: " + text.length());
-             System.out.println("Html length: " + html.length());
-             //System.out.println(html.toString().trim());
-             //System.out.println(text.toString());
-             System.out.println("Number of outgoing links: " + links.size());
-         }
-    }
+        	 HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
+        	 String text = htmlParseData.getText(); 
+/*          qui ci va la chiamata a boilerpipe
+            costruzione delle frasi
+            match -> SingleResult[] {URL, content, data, ...}                        */
+        	 try {
+        		 listaFrasiMatch(new URL(url));
+        	 } catch (MalformedURLException | BoilerpipeProcessingException e) {
+        		 e.printStackTrace();
+        	 }
+             
+//             SingleResult s = new SingleResult (url, text);
+//             s.addEntity("prova1");
+//             s.addEntity("prova2");
+//             this.coll.insertOne(s.singleResult2Document());
+//             String html = htmlParseData.getHtml();
+//             Set<WebURL> links = htmlParseData.getOutgoingUrls();
+//             System.out.println("Text length: " + text.length());
+//             System.out.println("Html length: " + html.length());
+//             System.out.println(html.toString().trim());
+//             System.out.println(text.toString());
+//             System.out.println("Number of outgoing links: " + links.size());
+     	}
+ 	}
+     
+     //create a collection of singleResult 
+     public void listaFrasiMatch (URL url) throws BoilerpipeProcessingException {
+// 		List<String> frasi = new ArrayList<String>();
+ 		String sentence = new String();
+ 		SingleResult sr = new SingleResult(url.toString(), sentence);
+ 		int breakPoint, punto, aCapo;
+ 		breakPoint = 0; punto = 0; aCapo = 0;
+ 		String text = ArticleExtractor.INSTANCE.getText(url).trim();
+ 		while (breakPoint < text.length()){
+ 			punto = text.indexOf(". ", breakPoint);
+ 			aCapo = text.indexOf("\n", breakPoint);
+// 				System.out.println("breakPoint "+breakPoint+" aCapo "+aCapo+" Punto "+punto);
+ 			if (punto < aCapo || (punto != -1 && aCapo == -1)) {
+ 				sentence = text.substring(breakPoint, text.indexOf(".",breakPoint)).trim();
+ 				breakPoint = text.indexOf('.',breakPoint)+1;
+ 			}
+ 			else if (aCapo < punto || (aCapo != -1 && punto == -1)) {
+ 				sentence = text.substring(breakPoint, text.indexOf("\n",breakPoint)).trim();
+ 				breakPoint = text.indexOf('\n',breakPoint)+1;
+ 			}
+ 			else {
+ 				sentence = text.substring(breakPoint, text.length()-1).trim();
+ 				breakPoint = text.length();
+ 			}
+// 			frasi.add(frase);
+ 			sr = new SingleResult(url.toString(), sentence);
+ 			sr.setEntity(matchEntity(sentence));
+ 			this.coll.insertOne(sr.singleResult2Document());
+// 			for (String p : entity){
+// 				System.out.print (p+"  ");
+// 			}
+// 			System.out.println();
+ 		}
+// 		for (String fr : frasi) {
+// 			System.out.println (frasi.indexOf(fr)+") "+fr);
+// 		}
+ 	}
+ 	
+    //returns a list of the entity of the sentence
+ 	public static List<String> matchEntity (String frase){
+ 		List<String> entity = new ArrayList<String>();
+ 		for (String kw : KEYWORDS) {
+ 			if (frase.toLowerCase().contains(kw.toLowerCase())){
+ 				entity.add(kw);
+ 			}
+ 		}
+ 		return entity;
+ 	}		
 }
