@@ -93,7 +93,7 @@ public class MyCrawler extends WebCrawler {
      
      //create a collection of singleResult 
      public void listaFrasiMatch (URL url) throws BoilerpipeProcessingException {
-// 		List<String> frasi = new ArrayList<String>();
+ 		List<String> phrases= new ArrayList<String>();
  		String sentence = new String();
  		SingleResult sr = new SingleResult(url.toString(), sentence);
  		int breakPoint, punto, aCapo;
@@ -115,18 +115,18 @@ public class MyCrawler extends WebCrawler {
  				sentence = text.substring(breakPoint, text.length()-1).trim();
  				breakPoint = text.length();
  			}
-// 			frasi.add(frase);
- 			sr = new SingleResult(url.toString(), sentence);
- 			sr.setEntity(matchEntity(sentence));
- 			this.coll.insertOne(sr.singleResult2Document());
+ 			phrases.add(sentence);
+// 			sr = new SingleResult(url.toString(), sentence);
+// 			sr.setEntity(matchEntity(sentence));
+// 			this.coll.insertOne(sr.singleResult2Document());
 // 			for (String p : entity){
 // 				System.out.print (p+"  ");
 // 			}
-// 			System.out.println();
+// 			System.out.println(sentence);
  		}
-// 		for (String fr : frasi) {
-// 			System.out.println (frasi.indexOf(fr)+") "+fr);
-// 		}
+ 		for (String s : phrases) {
+ 			System.out.println (phrases.indexOf(s)+") "+s);
+ 		}
  	}
  	
     //returns a list of the entity of the sentence
