@@ -116,17 +116,24 @@ public class MyCrawler extends WebCrawler {
  				breakPoint = text.length();
  			}
  			phrases.add(sentence);
+
+
+/*----SCOMMENTARE PER CREARE OGGETTO SINGLERESULT E AGGIUNGERLO ALLA COLLEZIONE----*/
 // 			sr = new SingleResult(url.toString(), sentence);
 // 			sr.setEntity(matchEntity(sentence));
 // 			this.coll.insertOne(sr.singleResult2Document());
-// 			for (String p : entity){
+/*----------------------------------------------------------------------------- */
+
+/*STAMPA L'ARRAY DELLE ENTITY DELLA SINGOLA FRASE*/
+// 			for (String p : entity) {
 // 				System.out.print (p+"  ");
 // 			}
-// 			System.out.println(sentence);
  		}
- 		for (String s : phrases) {
- 			System.out.println (phrases.indexOf(s)+") "+s);
- 		}
+
+/*STAMPA L'ARRAY DI TUTTE LE FRASI DELLA PAGINA*/		
+// 		for (String s : phrases) {
+// 			System.out.println (phrases.indexOf(s)+") "+s);
+// 		}
  	}
  	
     //returns a list of the entity of the sentence
