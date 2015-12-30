@@ -65,34 +65,28 @@ public class MyCrawler extends WebCrawler {
 		System.out.println("URL: " + url);
 
 		if (page.getParseData() instanceof HtmlParseData) {
-			//HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-			// String text = htmlParseData.getText(); 
-			/*          qui ci va la chiamata a boilerpipe
-            costruzione delle frasi
-            match -> SingleResult[] {URL, content, data, ...}                        */
+//			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
+//			String text = htmlParseData.getText(); 
+			
 			try {
 				listaFrasiMatch(new URL(url));
 			} catch (MalformedURLException | BoilerpipeProcessingException e) {
 				e.printStackTrace();
 			}
 
-			//             SingleResult s = new SingleResult (url, text);
-			//             s.addEntity("prova1");
-			//             s.addEntity("prova2");
-			//             this.coll.insertOne(s.singleResult2Document());
-			//             String html = htmlParseData.getHtml();
-			//             Set<WebURL> links = htmlParseData.getOutgoingUrls();
-			//             System.out.println("Text length: " + text.length());
-			//             System.out.println("Html length: " + html.length());
-			//             System.out.println(html.toString().trim());
-			//             System.out.println(text.toString());
-			//             System.out.println("Number of outgoing links: " + links.size());
+//	         String html = htmlParseData.getHtml();
+//	         Set<WebURL> links = htmlParseData.getOutgoingUrls();
+//	         System.out.println("Text length: " + text.length());
+//	         System.out.println("Html length: " + html.length());
+//	         System.out.println(html.toString().trim());
+//	         System.out.println(text.toString());
+//	         System.out.println("Number of outgoing links: " + links.size());
 		}
 	}
 
 	//create a collection of singleResult 
 	public void listaFrasiMatch (URL url) throws BoilerpipeProcessingException {
-		List<String> phrases= new ArrayList<String>();
+//		List<String> phrases= new ArrayList<String>();
 		String sentence;
 		SingleResult sr;
 		int breakPoint, punto, aCapo;
@@ -101,7 +95,7 @@ public class MyCrawler extends WebCrawler {
 		while (breakPoint < text.length()){
 			punto = text.indexOf(". ", breakPoint);
 			aCapo = text.indexOf("\n", breakPoint);
-			// 				System.out.println("breakPoint "+breakPoint+" aCapo "+aCapo+" Punto "+punto);
+//			System.out.println("breakPoint "+breakPoint+" aCapo "+aCapo+" Punto "+punto);
 			if (punto < aCapo || (punto != -1 && aCapo == -1)) {
 				sentence = text.substring(breakPoint, text.indexOf(".",breakPoint)).trim();
 				breakPoint = text.indexOf('.',breakPoint)+1;
@@ -114,25 +108,27 @@ public class MyCrawler extends WebCrawler {
 				sentence = text.substring(breakPoint, text.length()-1).trim();
 				breakPoint = text.length();
 			}
-			phrases.add(sentence);
+//			phrases.add(sentence);
 			List<String> entity = matchEntity(sentence);
 			if (!entity.isEmpty()) {
 				sr = new SingleResult(url.toString(), sentence);
 				sr.setEntity(matchEntity(sentence));
 				this.coll.insertOne(sr.singleResult2Document());
+				System.out.println("SENTENCE: "+sr.getText());
+				System.out.print("ENTITY: ");
+				for (String e : sr.getEntity()) {
+					System.out.print (e+" ");
+				}
+				System.out.println("\n");
 			}
-			/*----------------------------------------------------------------------------- */
-
-			/*STAMPA L'ARRAY DELLE ENTITY DELLA SINGOLA FRASE*/
-			//for (String p : sr.getEntity()) {
-			//System.out.print (p+"  ");
 		}
+		/*STAMPA L'ARRAY DI TUTTE LE FRASI DELLA PAGINA*/		
+//		for (String s : phrases) {
+//			System.out.println (phrases.indexOf(s)+") "+s);
+//		}
 	}
 
-	/*STAMPA L'ARRAY DI TUTTE LE FRASI DELLA PAGINA*/		
-	// 		for (String s : phrases) {
-	// 			System.out.println (phrases.indexOf(s)+") "+s);
-	// 		
+	 		
 
 
 	//returns a list of the entity of the sentence
