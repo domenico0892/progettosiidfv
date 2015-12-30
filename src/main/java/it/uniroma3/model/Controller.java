@@ -28,7 +28,7 @@ public class Controller {
          */
         //controller.addSeed("http://www.ics.uci.edu/~lopes/");
         //controller.addSeed("http://www.ics.uci.edu/~welling/");
-        controller.addSeed("http://www.ansa.it/");
+        controller.addSeed("http://www.ansa.it");
 
         /*
          * Start the crawl. This is a blocking operation, meaning that your code
