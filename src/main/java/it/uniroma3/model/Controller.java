@@ -8,8 +8,8 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 public class Controller {
     public static void main(String[] args) throws Exception {
         String crawlStorageFolder = "/data/crawler";
-        int numberOfCrawlers = 7;
-
+        int numberOfCrawlers = 1;
+       
         CrawlConfig config = new CrawlConfig();
         config.setCrawlStorageFolder(crawlStorageFolder);
 
@@ -28,7 +28,7 @@ public class Controller {
          */
         //controller.addSeed("http://www.ics.uci.edu/~lopes/");
         //controller.addSeed("http://www.ics.uci.edu/~welling/");
-        controller.addSeed("http://www.ansa.it");
+        controller.addSeed("http://www.corriere.it/economia/16_gennaio_10/nord-stream-gasdotto-italia-russia-renzi-putin-prove-intesa-ruolo-italiano-07fa5aee-b766-11e5-8210-122afbd965bb.shtml");
 
         /*
          * Start the crawl. This is a blocking operation, meaning that your code

@@ -1,0 +1,133 @@
+[INFO  - 2016-01-21T08:22:34.056Z] GhostDriver - Main - running on port 14404
+[INFO  - 2016-01-21T08:22:34.364Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.0.0 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2016-01-21T08:22:34.364Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.customHeaders:  - {}
+[INFO  - 2016-01-21T08:22:34.364Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.0.0","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"mac-unknown-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2016-01-21T08:22:34.364Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 1f6c0870-c018-11e5-a651-e57f90818c32
+[ERROR - 2016-01-21T08:22:36.290Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T08:22:36.290Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:16)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+[ERROR - 2016-01-21T08:22:40.403Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T08:22:40.403Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:16)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+[ERROR - 2016-01-21T08:22:42.682Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T08:22:42.682Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:16)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+[ERROR - 2016-01-21T08:22:43.578Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T08:22:43.578Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:16)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+[ERROR - 2016-01-21T08:22:50.952Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T08:22:50.961Z] Session [1f6c0870-c018-11e5-a651-e57f90818c32] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:16)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:15)
+[INFO  - 2016-01-21T08:27:34.074Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T08:32:34.085Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T08:37:34.099Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T08:42:34.114Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T08:47:34.127Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T08:52:34.142Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T08:57:34.155Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T09:02:34.169Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T09:07:34.182Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T09:15:30.734Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T09:20:30.748Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T09:25:30.762Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T09:30:30.775Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T09:35:30.789Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T09:40:30.804Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-01-21T09:41:33.491Z] GhostDriver - Main - running on port 47197
+[INFO  - 2016-01-21T09:41:33.694Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.0.0 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2016-01-21T09:41:33.694Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.customHeaders:  - {}
+[INFO  - 2016-01-21T09:41:33.695Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.0.0","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"mac-unknown-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2016-01-21T09:41:33.695Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 28488da0-c023-11e5-b8fc-79edbd13264a
+[ERROR - 2016-01-21T09:41:35.717Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T09:41:35.717Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:24)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+[ERROR - 2016-01-21T09:41:40.155Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T09:41:40.156Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:24)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+[ERROR - 2016-01-21T09:41:43.379Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T09:41:43.387Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:24)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+[ERROR - 2016-01-21T09:41:44.401Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T09:41:44.401Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:24)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+[ERROR - 2016-01-21T09:41:49.837Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T09:41:49.845Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:24)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+[ERROR - 2016-01-21T09:41:50.824Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T09:41:50.824Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:24)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+[ERROR - 2016-01-21T09:41:53.675Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - msg: Error: Syntax error, unrecognized expression: a.tot-rating[href='http://www.corriere.it/esteri/15_settembre_24/calca-la-mecca-hajj-cento-cinquanta-morti-quattrocento-feriti-060e40e8-6297-11e5-95fc-7c4133631b69.shtml#votoEmo'
+[ERROR - 2016-01-21T09:41:53.675Z] Session [28488da0-c023-11e5-b8fc-79edbd13264a] - page.onError - stack:
+  error (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  mt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  kt (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  at (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  find (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:24)
+  init (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)
+  x (http://js.corriereobjects.it/includes2013/LIBS/js/_top.sjs?v=20150904145842:23)

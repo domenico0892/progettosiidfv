@@ -8,12 +8,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.bson.Document;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import de.l3s.boilerpipe.BoilerpipeProcessingException;
 import de.l3s.boilerpipe.extractors.ArticleExtractor;
+import de.l3s.boilerpipe.extractors.ArticleSentencesExtractor;
+import de.l3s.boilerpipe.extractors.DefaultExtractor;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
@@ -26,15 +33,25 @@ public class MyCrawler extends WebCrawler {
 			+ "|png|mp3|mp3|zip|gz))$");
 
 	//insert the keywords of the query
-	public static final String[] KEYWORDS = {"roma","islam"};
+	public static final String[] KEYWORDS = {"politica","renzi"};
 
 	private MongoCollection<Document> coll;
+	private WebDriver driver;
 
 	public MyCrawler () {
 		super();
 		MongoConnection m = new MongoConnection();
-		MongoDatabase d = m.getMongoClient().getDatabase("prova_crawler");
-		this.coll = d.getCollection("prova_crawler");
+		MongoDatabase d = m.getMongoClient().getDatabase("pagine");
+		this.coll = d.getCollection("pagine");
+		
+		Capabilities caps = new DesiredCapabilities();
+		((DesiredCapabilities) caps).setJavascriptEnabled(true);                
+		((DesiredCapabilities) caps).setCapability("takesScreenshot", true);  
+		((DesiredCapabilities) caps).setCapability(
+				PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
+				"/Users/Domenico/Development/Librerie/phantomjs-2.0.1-macosx/bin/phantomjs"
+				);
+		this.driver = new  PhantomJSDriver(caps);
 	}
 
 
@@ -50,30 +67,63 @@ public class MyCrawler extends WebCrawler {
 	 */
 	@Override
 	public boolean shouldVisit(Page referringPage, WebURL url) {
-		String href = url.getURL().toLowerCase();
-		return !FILTERS.matcher(href).matches()
-				&& href.startsWith("http://www.ansa.it");
+		String ref = referringPage.getWebURL().getURL();
+		URL refUrl;
+		try {
+			refUrl = new URL(ref);
+			String match = "http://" + refUrl.getHost().toLowerCase();
+			String href = url.getURL().toLowerCase();
+			return !FILTERS.matcher(href).matches()
+					&& href.startsWith(match);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	/**
 	 * This function is called when a page is fetched and ready
 	 * to be processed by your program.
+	 * @throws BoilerpipeProcessingException 
 	 */
 	@Override
 	public void visit(Page page) {
 		String url = page.getWebURL().getURL();
 		System.out.println("URL: " + url);
-
 		if (page.getParseData() instanceof HtmlParseData) {
-//			HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-//			String text = htmlParseData.getText(); 
-			
+			//HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
+			//String html = htmlParseData.getHtml();
+			this.driver.get(url);
+			URL url_parsed;
 			try {
-				listaFrasiMatch(new URL(url));
-			} catch (MalformedURLException | BoilerpipeProcessingException e) {
+				url_parsed = new URL (url);
+				Document doc = new Document();
+				doc.append("url", url);
+				doc.append("host", url_parsed.getHost());
+				doc.append("html", this.driver.getPageSource());
+				this.coll.insertOne(doc);
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+		}
+	}
+			
+			
+			
+			//System.out.println(html);
+//			String text = htmlParseData.getText(); 
+			/*
+			try {
+				//listaFrasiMatch(new URL(url));
+				String text = ArticleSentencesExtractor.INSTANCE.getText(url);
+				System.out.println("testo:" + text);
+			} catch (BoilerpipeProcessingException e) {
+				e.printStackTrace();
+			}
+			
+*/
 //	         String html = htmlParseData.getHtml();
 //	         Set<WebURL> links = htmlParseData.getOutgoingUrls();
 //	         System.out.println("Text length: " + text.length());
@@ -81,8 +131,6 @@ public class MyCrawler extends WebCrawler {
 //	         System.out.println(html.toString().trim());
 //	         System.out.println(text.toString());
 //	         System.out.println("Number of outgoing links: " + links.size());
-		}
-	}
 
 	//create a collection of singleResult 
 	public void listaFrasiMatch (URL url) throws BoilerpipeProcessingException {
