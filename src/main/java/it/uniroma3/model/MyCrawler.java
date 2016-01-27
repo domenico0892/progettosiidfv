@@ -1,13 +1,15 @@
 package it.uniroma3.model;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.bson.Document;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
@@ -17,10 +19,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import de.l3s.boilerpipe.BoilerpipeProcessingException;
-import de.l3s.boilerpipe.extractors.ArticleExtractor;
-import de.l3s.boilerpipe.extractors.ArticleSentencesExtractor;
-import de.l3s.boilerpipe.extractors.DefaultExtractor;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
@@ -33,7 +31,7 @@ public class MyCrawler extends WebCrawler {
 			+ "|png|mp3|mp3|zip|gz))$");
 
 	//insert the keywords of the query
-	public static final String[] KEYWORDS = {"politica","renzi"};
+	//public static final String[] KEYWORDS = {"politica","renzi"};
 
 	private MongoCollection<Document> coll;
 	private WebDriver driver;
@@ -41,17 +39,26 @@ public class MyCrawler extends WebCrawler {
 	public MyCrawler () {
 		super();
 		MongoConnection m = new MongoConnection();
-		MongoDatabase d = m.getMongoClient().getDatabase("pagine");
-		this.coll = d.getCollection("pagine");
+		MongoDatabase d = m.getMongoClient().getDatabase("prove");
+		this.coll = d.getCollection("prove");
+		 FileReader reader;
+		try {
+			reader = new FileReader("config.json");
+	         JSONParser jsonParser = new JSONParser();		 
+			JSONObject cj = (JSONObject) jsonParser.parse(reader);
+			Capabilities caps = new DesiredCapabilities();
+			((DesiredCapabilities) caps).setJavascriptEnabled(true);                
+			((DesiredCapabilities) caps).setCapability("takesScreenshot", true);  
+			((DesiredCapabilities) caps).setCapability(
+					PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
+					cj.get("phantomjs")
+					);
+			this.driver = new  PhantomJSDriver(caps);
+		} catch (IOException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		Capabilities caps = new DesiredCapabilities();
-		((DesiredCapabilities) caps).setJavascriptEnabled(true);                
-		((DesiredCapabilities) caps).setCapability("takesScreenshot", true);  
-		((DesiredCapabilities) caps).setCapability(
-				PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
-				"/Users/Domenico/Development/Librerie/phantomjs-2.0.1-macosx/bin/phantomjs"
-				);
-		this.driver = new  PhantomJSDriver(caps);
 	}
 
 
@@ -109,86 +116,4 @@ public class MyCrawler extends WebCrawler {
 			}
 		}
 	}
-			
-			
-			
-			//System.out.println(html);
-//			String text = htmlParseData.getText(); 
-			/*
-			try {
-				//listaFrasiMatch(new URL(url));
-				String text = ArticleSentencesExtractor.INSTANCE.getText(url);
-				System.out.println("testo:" + text);
-			} catch (BoilerpipeProcessingException e) {
-				e.printStackTrace();
-			}
-			
-*/
-//	         String html = htmlParseData.getHtml();
-//	         Set<WebURL> links = htmlParseData.getOutgoingUrls();
-//	         System.out.println("Text length: " + text.length());
-//	         System.out.println("Html length: " + html.length());
-//	         System.out.println(html.toString().trim());
-//	         System.out.println(text.toString());
-//	         System.out.println("Number of outgoing links: " + links.size());
-
-	//create a collection of singleResult 
-	public void listaFrasiMatch (URL url) throws BoilerpipeProcessingException {
-//		List<String> phrases= new ArrayList<String>();
-		String sentence;
-		SingleResult sr;
-		int breakPoint, punto, aCapo;
-		breakPoint = 0; punto = 0; aCapo = 0;
-		String text = ArticleExtractor.INSTANCE.getText(url).trim();
-		while (breakPoint < text.length()){
-			punto = text.indexOf(". ", breakPoint);
-			aCapo = text.indexOf("\n", breakPoint);
-//			System.out.println("breakPoint "+breakPoint+" aCapo "+aCapo+" Punto "+punto);
-			if (punto < aCapo || (punto != -1 && aCapo == -1)) {
-				sentence = text.substring(breakPoint, text.indexOf(".",breakPoint)).trim();
-				breakPoint = text.indexOf('.',breakPoint)+1;
-			}
-			else if (aCapo < punto || (aCapo != -1 && punto == -1)) {
-				sentence = text.substring(breakPoint, text.indexOf("\n",breakPoint)).trim();
-				breakPoint = text.indexOf('\n',breakPoint)+1;
-			}
-			else {
-				sentence = text.substring(breakPoint, text.length()-1).trim();
-				breakPoint = text.length();
-			}
-//			phrases.add(sentence);
-			List<String> entity = matchEntity(sentence);
-			if (!entity.isEmpty()) {
-				sr = new SingleResult(url.toString(), sentence);
-				sr.setEntity(matchEntity(sentence));
-				this.coll.insertOne(sr.singleResult2Document());
-				System.out.println("SENTENCE: "+sr.getText());
-				System.out.print("ENTITY: ");
-				for (String e : sr.getEntity()) {
-					System.out.print (e+" ");
-				}
-				System.out.println("\n");
-			}
-		}
-		/*STAMPA L'ARRAY DI TUTTE LE FRASI DELLA PAGINA*/		
-//		for (String s : phrases) {
-//			System.out.println (phrases.indexOf(s)+") "+s);
-//		}
-	}
-
-	 		
-
-
-	//returns a list of the entity of the sentence
-	public static List<String> matchEntity (String frase){
-		List<String> entity = new ArrayList<String>();
-		for (String kw : KEYWORDS) {
-			Pattern my_pattern = Pattern.compile("([^a-z]"+kw+"[^a-z])|(^"+kw+"[^a-z])");
-			Matcher m = my_pattern.matcher(frase.toLowerCase());
-			if (m.find()){
-				entity.add(kw);
-			}
-		}
-		return entity;
-	}		
 }
