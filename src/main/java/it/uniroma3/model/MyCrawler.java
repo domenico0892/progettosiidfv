@@ -39,8 +39,8 @@ public class MyCrawler extends WebCrawler {
 	public MyCrawler () {
 		super();
 		MongoConnection m = new MongoConnection();
-		MongoDatabase d = m.getMongoClient().getDatabase("prove");
-		this.coll = d.getCollection("prove");
+		MongoDatabase d = m.getMongoClient().getDatabase("pagine");
+		this.coll = d.getCollection("pagine");
 		 FileReader reader;
 		try {
 			reader = new FileReader("config.json");

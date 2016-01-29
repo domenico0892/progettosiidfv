@@ -22,7 +22,7 @@ public class Controller {
 		default:
 			
 			String crawlStorageFolder = (String)cj.get("crawler");
-			int numberOfCrawlers = 1;
+			int numberOfCrawlers = Runtime.getRuntime().availableProcessors();
 
 			CrawlConfig config = new CrawlConfig();
 			config.setCrawlStorageFolder(crawlStorageFolder);
