@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import org.bson.Document;
@@ -46,14 +47,30 @@ public class MyCrawler extends WebCrawler {
 			reader = new FileReader("config.json");
 	         JSONParser jsonParser = new JSONParser();		 
 			JSONObject cj = (JSONObject) jsonParser.parse(reader);
-			Capabilities caps = new DesiredCapabilities();
+			/*Capabilities caps = new DesiredCapabilities();
 			((DesiredCapabilities) caps).setJavascriptEnabled(true);                
-			((DesiredCapabilities) caps).setCapability("takesScreenshot", true);  
+			((DesiredCapabilities) caps).setCapability("takesScreenshot", true); 
+			((DesiredCapabilities) caps).setCapability("webSecurityEnabled", false);
 			((DesiredCapabilities) caps).setCapability(
 					PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
 					cj.get("phantomjs")
-					);
-			this.driver = new  PhantomJSDriver(caps);
+					);*/
+			ArrayList<String> cliArgsCap = new ArrayList<String>();
+			DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+			cliArgsCap.add("--web-security=false");
+			cliArgsCap.add("--ssl-protocol=any");
+			cliArgsCap.add("--ignore-ssl-errors=true");
+			capabilities.setCapability("takesScreenshot", true);
+			capabilities.setCapability(
+			    PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArgsCap);
+			capabilities.setCapability(
+			    PhantomJSDriverService.PHANTOMJS_GHOSTDRIVER_CLI_ARGS,
+			        new String[] { "--logLevel=2" });
+			capabilities.setCapability(
+					PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
+					cj.get("phantomjs"));
+			this.driver = new PhantomJSDriver(capabilities);
+			
 		} catch (IOException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,12 +121,14 @@ public class MyCrawler extends WebCrawler {
 			this.driver.get(url);
 			URL url_parsed;
 			try {
+				System.out.println("salvataggio");
 				url_parsed = new URL (url);
 				Document doc = new Document();
 				doc.append("url", url);
 				doc.append("host", url_parsed.getHost());
 				doc.append("html", this.driver.getPageSource());
 				this.coll.insertOne(doc);
+				System.out.println(url + "salvato");
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
