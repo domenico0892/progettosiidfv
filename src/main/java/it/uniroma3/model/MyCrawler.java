@@ -4,15 +4,22 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.util.List;
+>>>>>>> master
 import java.util.regex.Pattern;
 
 import org.bson.Document;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.jsoup.Jsoup;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -116,9 +123,27 @@ public class MyCrawler extends WebCrawler {
 		String url = page.getWebURL().getURL();
 		System.out.println("URL: " + url);
 		if (page.getParseData() instanceof HtmlParseData) {
-			//HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-			//String html = htmlParseData.getHtml();
 			this.driver.get(url);
+			String pageS = this.driver.getPageSource();
+			List<WebElement> iframeElements = driver.findElements(By.tagName("iframe"));
+			for(WebElement we : iframeElements){
+				String iframeId = we.getAttribute("id");
+				String iframeSrc = we.getAttribute("src");
+//				driver.switchTo().frame(we);
+//				String iframeHtml = this.driver.getPageSource();
+//				System.out.println("HTML "+iframeHtml);
+//				driver.switchTo().defaultContent();
+				if (iframeId != null && !iframeId.equals("") && iframeSrc != null && !iframeSrc.equals("")){
+					System.out.println("ID "+iframeId);
+					System.out.println("SRC "+iframeSrc);
+					try {
+						pageS = manipolareHtml(pageS, iframeId, iframeSrc);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
+			}
 			URL url_parsed;
 			try {
 				System.out.println("salvataggio");
@@ -126,13 +151,23 @@ public class MyCrawler extends WebCrawler {
 				Document doc = new Document();
 				doc.append("url", url);
 				doc.append("host", url_parsed.getHost());
-				doc.append("html", this.driver.getPageSource());
+				doc.append("html", pageS);
+				System.out.println("INSERITO\n\n");
 				this.coll.insertOne(doc);
 				System.out.println(url + "salvato");
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
+				System.out.println("NON INSERITO");
 				e.printStackTrace();
 			}
 		}
+	}
+		
+	private String manipolareHtml(String pageS, String iframeId, String iframeSrc) throws IOException {
+		org.jsoup.nodes.Document doc2 = Jsoup.connect(iframeSrc).get();
+		org.jsoup.nodes.Document doc = Jsoup.parse(pageS);
+		doc.select("iframe#"+iframeId).after(doc2.outerHtml());
+		doc.select("iframe#"+iframeId).remove();
+		return doc.html();
 	}
 }
