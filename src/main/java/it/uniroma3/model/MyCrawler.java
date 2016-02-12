@@ -6,22 +6,12 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-import java.util.ArrayList;
-=======
-=======
-import java.util.ArrayList;
->>>>>>> Iframe
->>>>>>> 42ac9e90820ce8711de4f1a81bd376ac050eef7b
-import java.util.List;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.regex.Pattern;
-
 import org.bson.Document;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -50,11 +40,9 @@ public class MyCrawler extends WebCrawler {
 	private final static Pattern FILTERS = Pattern.compile(".*(\\.(css|js|gif|jpg"
 			+ "|png|mp3|mp3|zip|gz))$");
 
-	//insert the keywords of the query
-	//public static final String[] KEYWORDS = {"politica","renzi"};
-
 	private MongoCollection<Document> coll;
-	private WebDriver driver, driverIframe;
+	private WebDriver driver; 
+//	private WebDriver driverIframe;
 
 	public MyCrawler () {
 		super();
@@ -66,38 +54,7 @@ public class MyCrawler extends WebCrawler {
 			reader = new FileReader("config.json");
 	        JSONParser jsonParser = new JSONParser();		 
 			JSONObject cj = (JSONObject) jsonParser.parse(reader);
-<<<<<<< HEAD
-			Capabilities caps = new DesiredCapabilities();
-=======
-<<<<<<< HEAD
-			/*Capabilities caps = new DesiredCapabilities();
->>>>>>> 42ac9e90820ce8711de4f1a81bd376ac050eef7b
-			((DesiredCapabilities) caps).setJavascriptEnabled(true);                
-			((DesiredCapabilities) caps).setCapability("takesScreenshot", true); 
-			//((DesiredCapabilities) caps).setCapability("webSecurityEnabled", false);
-			((DesiredCapabilities) caps).setCapability(
-					PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
-					cj.get("phantomjs")
-					);
-			//ArrayList<String> cliArgsCap = new ArrayList<String>();
-			//DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
-			/*cliArgsCap.add("--web-security=false");
-			cliArgsCap.add("--ssl-protocol=any");
-			cliArgsCap.add("--ignore-ssl-errors=true");
-			*/
-//			capabilities.setCapability("takesScreenshot", true);
-//			capabilities.setCapability(
-//			    PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cliArgsCap);
-//			capabilities.setCapability(
-//			    PhantomJSDriverService.PHANTOMJS_GHOSTDRIVER_CLI_ARGS,
-//			        new String[] { "--logLevel=2" });
-//			capabilities.setCapability(
-//					PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
-//					cj.get("phantomjs"));
-			//this.driver = new PhantomJSDriver(capabilities);
-			this.driver = new PhantomJSDriver(caps);
-			
-=======
+
 			DesiredCapabilities caps = DesiredCapabilities.phantomjs();
 			caps.setJavascriptEnabled(false);
 			caps.setCapability("takesScreenshot", true);
@@ -112,8 +69,8 @@ public class MyCrawler extends WebCrawler {
 					cj.get("phantomjs")
 					);
 			this.driver = new  PhantomJSDriver(caps);
-			this.driverIframe = new  PhantomJSDriver(caps);
->>>>>>> Iframe
+//			this.driverIframe = new  PhantomJSDriver(caps);
+
 		} catch (IOException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -162,48 +119,31 @@ public class MyCrawler extends WebCrawler {
 			this.driver.get(url);
 
 			String pageS = this.driver.getPageSource();
-			List<WebElement> iframeElements = this.driver.findElements(By.tagName("iframe"));
-			for(WebElement we : iframeElements){
-				String iframeId = we.getAttribute("id");
-				String iframeSrc = we.getAttribute("src");
-<<<<<<< HEAD
-//				driver.switchTo().frame(we);
-//				String iframeHtml = this.driver.getPageSource();
-//				System.out.println("HTML "+iframeHtml);
-//				driver.switchTo().defaultContent();
-//				if (iframeId != null && !iframeId.equals("") && iframeSrc != null && !iframeSrc.equals("")){
+
+//			List<WebElement> iframeElements = this.driver.findElements(By.tagName("iframe"));
+//			for(WebElement we : iframeElements){
+//				String iframeId = we.getAttribute("id");
+//				String iframeSrc = we.getAttribute("src");
+//				if (iframeId != null && !iframeId.equals("") && iframeSrc != null && iframeSrc.contains("http")){
 //					System.out.println("ID "+iframeId);
 //					System.out.println("SRC "+iframeSrc);
 //					try {
-//						pageS = manipolareHtml(pageS, iframeId, iframeSrc);
+//						this.driver.switchTo().frame(iframeId);
+//						String iframeS = this.driver.getPageSource();
+//						pageS = manipolareHtml(pageS,iframeId, iframeS);
+//						this.driver.switchTo().defaultContent();
 //					} catch (IOException e) {
 //						e.printStackTrace();
 //					}
-//				}
-
-=======
-				if (iframeId != null && !iframeId.equals("") && iframeSrc != null && iframeSrc.contains("http")){
-					System.out.println("ID "+iframeId);
-					System.out.println("SRC "+iframeSrc);
-					try {
-						this.driver.switchTo().frame(iframeId);
-						String iframeS = this.driver.getPageSource();
-						pageS = manipolareHtml(pageS,iframeId, iframeS);
-						this.driver.switchTo().defaultContent();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
 //					try {
 //						this.driverIframe.get(iframeSrc);
 //						String iframeS = this.driverIframe.getPageSource();
 //						pageS = manipolareHtml(pageS,iframeId, iframeS);
 //					} catch (IOException e) {
 //						e.printStackTrace();
-//					}
-					
-				}
->>>>>>> 42ac9e90820ce8711de4f1a81bd376ac050eef7b
-			}
+//				}
+//			}
+
 			
 			URL url_parsed;
 			try {
@@ -215,48 +155,19 @@ public class MyCrawler extends WebCrawler {
 				doc.append("html", pageS);
 				System.out.println("INSERITO\n\n");
 				this.coll.insertOne(doc);
-				System.out.println(url + "salvato");
 			} catch (MalformedURLException e) {
 				System.out.println("NON INSERITO\n\n");
 				e.printStackTrace();
-
 			}
-			
-//			
-//			URL url_parsed;
-//			try {
-//				System.out.println("salvataggio");
-//				url_parsed = new URL (url);
-//				Document doc = new Document();
-//				doc.append("url", url);
-//				doc.append("host", url_parsed.getHost());
-//				//doc.append("html", this.driver.getPageSource());
-//				doc.append("html", pageS);
-//				this.coll.insertOne(doc);
-//				System.out.println(url + "salvato");
-//			} catch (MalformedURLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
 		}
 	}
-<<<<<<< HEAD
-
 		
-	private String manipolareHtml(String pageS, String iframeId, String iframeSrc) throws IOException {
-		org.jsoup.nodes.Document doc2 = Jsoup.connect(iframeSrc).get();
-=======
 	
-	private String manipolareHtml(String pageS, String iframeId, String iframeS) throws IOException {
->>>>>>> 42ac9e90820ce8711de4f1a81bd376ac050eef7b
-		org.jsoup.nodes.Document doc = Jsoup.parse(pageS);
-		doc.select("iframe#"+iframeId).after(iframeS);
-		doc.select("iframe#"+iframeId).remove();
-<<<<<<< HEAD
-		return doc.html();
+//	private String manipolareHtml(String pageS, String iframeId, String iframeS) throws IOException {
+//		org.jsoup.nodes.Document doc = Jsoup.parse(pageS);
+//		doc.select("iframe#"+iframeId).after(iframeS);
+//		doc.select("iframe#"+iframeId).remove();
+//		return doc.toString();
+//	}
 
-=======
-		return doc.toString();
->>>>>>> 42ac9e90820ce8711de4f1a81bd376ac050eef7b
-	}
 }
