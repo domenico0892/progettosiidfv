@@ -138,15 +138,15 @@ public class MyCrawler extends WebCrawler {
 //				String iframeHtml = this.driver.getPageSource();
 //				System.out.println("HTML "+iframeHtml);
 //				driver.switchTo().defaultContent();
-				if (iframeId != null && !iframeId.equals("") && iframeSrc != null && !iframeSrc.equals("")){
-					System.out.println("ID "+iframeId);
-					System.out.println("SRC "+iframeSrc);
-					try {
-						pageS = manipolareHtml(pageS, iframeId, iframeSrc);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
+//				if (iframeId != null && !iframeId.equals("") && iframeSrc != null && !iframeSrc.equals("")){
+//					System.out.println("ID "+iframeId);
+//					System.out.println("SRC "+iframeSrc);
+//					try {
+//						pageS = manipolareHtml(pageS, iframeId, iframeSrc);
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+//				}
 
 			}
 			URL url_parsed;
