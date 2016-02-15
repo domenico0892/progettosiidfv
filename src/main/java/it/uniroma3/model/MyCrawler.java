@@ -111,21 +111,22 @@ public class MyCrawler extends WebCrawler {
 		if (page.getParseData() instanceof HtmlParseData) {
 			this.driver.get(url);
 			String pageS = this.driver.getPageSource();
-//			List<WebElement> iframeElements = this.driver.findElements(By.tagName("iframe"));
-//			for(WebElement we : iframeElements){
-//				String iframeId = we.getAttribute("id");
-//				String iframeSrc = we.getAttribute("src");
-//				if (iframeId != null && !iframeId.equals("") && iframeSrc != null && iframeSrc.contains("http")){
-//					System.out.println("ID "+iframeId);
-//					System.out.println("SRC "+iframeSrc);
-//					try {
-//						this.driver.switchTo().frame(iframeId);
-//						String iframeS = this.driver.getPageSource();
-//						pageS = manipolareHtml(pageS,iframeId, iframeS);
-//						this.driver.switchTo().defaultContent();
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
+			List<WebElement> iframeElements = this.driver.findElements(By.tagName("iframe"));
+			for(WebElement we : iframeElements){
+				String iframeId = we.getAttribute("id");
+				String iframeSrc = we.getAttribute("src");
+				if (iframeId != null && !iframeId.equals("") && iframeSrc != null && iframeSrc.contains("http")){
+					System.out.println("ID "+iframeId);
+					System.out.println("SRC "+iframeSrc);
+					try {
+						this.driver.switchTo().frame(iframeId);
+						String iframeS = this.driver.getPageSource();
+						iframeS = manipolareIframe(iframeS);
+						pageS = manipolareHtml(pageS,iframeId, iframeS);
+						this.driver.switchTo().defaultContent();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 //					try {
 //						this.driverIframe.get(iframeSrc);
 //						String iframeS = this.driverIframe.getPageSource();
@@ -133,9 +134,9 @@ public class MyCrawler extends WebCrawler {
 //					} catch (IOException e) {
 //						e.printStackTrace();
 //					}
-//					
-//				}
-//			}
+					
+				}
+			}
 			
 			URL url_parsed;
 			try {
@@ -153,10 +154,20 @@ public class MyCrawler extends WebCrawler {
 		}
 	}
 	
-//	private String manipolareHtml(String pageS, String iframeId, String iframeS) throws IOException {
-//		org.jsoup.nodes.Document doc = Jsoup.parse(pageS);
-//		doc.select("iframe#"+iframeId).after(iframeS);
-//		doc.select("iframe#"+iframeId).remove();
-//		return doc.toString();
-//	}
+	public static String manipolareHtml(String pageS, String iframeId, String iframeS) throws IOException {
+		org.jsoup.nodes.Document doc = Jsoup.parse(pageS);
+		doc.select("iframe#"+iframeId).after("<div>"+iframeS+"</div>");
+		doc.select("iframe#"+iframeId).remove();
+		doc.select("script").remove();
+//		doc.select("iframe#"+iframeId).html(iframeS);
+		return doc.toString();
+	}
+	
+	public static String manipolareIframe(String iframeS){
+		org.jsoup.nodes.Document doc = Jsoup.parse(iframeS);
+//		doc.select("script").remove();
+//		doc.select("head").remove();
+//		doc.select("style").first().remove();
+		return doc.select("body").html();
+	}
 }
