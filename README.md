@@ -9,3 +9,4 @@ it.uniroma3.model:
 it.uniroma3.persistance:
 - MongoConnection -> richiede la connessione a MongoDB
 
+N.B. Modificare il config.json con i path desiderati
